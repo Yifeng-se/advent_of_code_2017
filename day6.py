@@ -1,6 +1,11 @@
 #!/usr/local/bin/python3
 def main():
-	iArr = [4, 10, 4, 1, 8, 4, 9, 14, 5, 1, 14, 15, 0, 15, 3, 5]
+	ss = []
+	with open('input.txt') as f:
+		for content in f:
+			content = content.rstrip('\n')
+			ss.append(content)
+	iArr = list(map(int, ss[0].split('\t')))
 	#iArr = [0, 2, 7 ,0]
 	n = len(iArr)
 	l = []
@@ -18,7 +23,7 @@ def main():
 			iArr[(PosMax + iMove) % n] += 1
 			iMax -= 1
 		#print(iArr, l)
-	print(i)
+	print(i, len(l) - l.index(iArr))
 	return 0
 
 # end of main
