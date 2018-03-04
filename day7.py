@@ -26,15 +26,18 @@ class Disc(object):
 		self.weight = weight
 		self.children = []
 		self.level = 0
+
 	def add(self, child):
 		self.children.append(child)
 		child.moveDown(self.level + 1)
+
 	def getTotalWeight(self):
 		r = 0
 		for x in self.children:
 			r += x.getTotalWeight()
 		r += self.weight
 		return r
+
 	def ChildrenWeightDiff(self):
 		r = False
 		for x in self.children:
@@ -42,45 +45,44 @@ class Disc(object):
 				r = True
 				break
 		return r
+
 	def moveDown(self, n):
 		self.level += n
 		for x in self.children:
 			x.moveDown(n)
+
 def q_2():
-	l = []
 	d = {}
+	#Put everything into a dict
+	#TODO: at the mean time we should be able to get the root
 	parentname, weight, children = '', 0, []
-	i = 0
 	with open('input.txt') as f:
 		for content in f:
 			content = content.rstrip('\n')
 			parentname, weight = content[:content.index('(') - 1], int(content[content.index('(') + 1:content.index(')')])
 			if parentname in d:
-				l[d[parentname]].weight = weight
+				d[parentname].weight = weight
 			else:
-				l.append(Disc(parentname, weight))
-				d[parentname] = i
-				i += 1
+				d[parentname] = Disc(parentname, weight)
 			if '->' in content:
 				children = content[content.index('-> ') + 3:].split(', ')
 				for x in children:
 					if x in d:
 						pass
 					else:
-						l.append(Disc(x, 0))
-						d[x] = i
-						i += 1
-					l[d[parentname]].add(l[d[x]])
+						d[x] = Disc(x, 0)
+					d[parentname].add(d[x])
 
+	#TODO: if we start from root then go to every children, we don't need to go through all objects
 	maxDiffWeightLevel = 0
 	maxDiffWeightName = ''
-	for x in l:
-		if x.ChildrenWeightDiff():
-			if maxDiffWeightLevel < x.level:
-				maxDiffWeightName = x.name
-				maxDiffWeightLevel = x.level
+	for v in d.values():
+		if v.ChildrenWeightDiff():
+			if maxDiffWeightLevel < v.level:
+				maxDiffWeightName = v.name
+				maxDiffWeightLevel = v.level
 	d2 = {}
-	for x in l[d[maxDiffWeightName]].children:
+	for x in d[maxDiffWeightName].children:
 		if x.getTotalWeight() in d2:
 			d2[x.getTotalWeight()] += [x.name]
 		else:
@@ -92,7 +94,7 @@ def q_2():
 			wrong_weight = k
 		else:
 			right_weight = k
-	print(l[d[wrong_name]].weight - (wrong_weight - right_weight))
+	print(d[wrong_name].weight - (wrong_weight - right_weight))
 
 	return 0
 
