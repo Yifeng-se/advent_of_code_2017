@@ -30,22 +30,23 @@ def q_1():
 			inputList = list(map(int, content.split(',')))
 			for i in inputList:
 				obj_q1.modifyList(i)
-			print(obj_q1.list)
+			print(obj_q1.list[0] * obj_q1.list[1])
 
 def q_2():
 	obj_q2 = KnotHash(256)
-	inputList, denseHash = [], []
+	inputList, denseHash, salt = [], [], [17, 31, 73, 47, 23]
+	slices = 16
 	#obj_test = KnotHash(5)
 	with open('input.txt') as f:
 		for content in f:
 			content = content.rstrip('\n')
 			for x in content:
 				inputList.append(ord(x))
-			inputList += [17, 31, 73, 47, 23]
+			inputList += salt
 			for i in range(64):
 				for m in inputList:
 					obj_q2.modifyList(m)
-			for l in [obj_q2.list[i:i + 16] for i in range(0, len(obj_q2.list), 16)]:
+			for l in [obj_q2.list[i:i + slices] for i in range(0, len(obj_q2.list), slices)]:
 				denseHash.append(0)
 				for x in l:
 					denseHash[-1] = denseHash[-1] ^ x
@@ -54,6 +55,7 @@ def q_2():
 			print(''.join(denseHash))
 
 def main():
+	q_1()
 	q_2()
 
 # end of main
