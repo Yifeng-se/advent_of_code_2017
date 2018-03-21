@@ -51,11 +51,11 @@ def q_2():
 				for x in l:
 					denseHash[-1] = denseHash[-1] ^ x
 			for i in range(len(denseHash)):
-				denseHash[i] = format(denseHash[i], 'x')
+				denseHash[i] = format(denseHash[i], 'x').rjust(2, '0')
 			print(''.join(denseHash))
 
 def main():
-	q_1()
+#	q_1()
 	q_2()
 
 # end of main
