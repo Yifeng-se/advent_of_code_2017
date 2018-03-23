@@ -22,7 +22,7 @@ def q_2(ss):
 
 def main():
 	ss = []
-	with open('input.txt') as f:
+	with open('inputs/input04.txt') as f:
 		for content in f:
 			content = content.rstrip('\n')
 			ss.append(content)

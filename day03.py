@@ -98,8 +98,6 @@ def q_2(n):
 def main():
 	print(q_1(265149))
 	print(q_2(265149))
-#	for i in range(1, 30):
-#		print(i, q_1(i))
 # end of main
 
 if __name__ == '__main__':
