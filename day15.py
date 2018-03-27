@@ -7,7 +7,7 @@ def q_1():
     StartValueB = 583  # 8921
     PairNA, PairNB = StartValueA, StartValueB
     iCnt = 0
-    for i in range(40000000):
+    for i in range(40_000_000):
         PairNA = (PairNA * FactorA) % ModValue
         PairNB = (PairNB * FactorB) % ModValue
         # print(bin(PairNA)[2:].zfill(32), bin(PairNB)[2:].zfill(32))
@@ -37,7 +37,7 @@ def q_2():
             if (b % 8 == 0):
                 return b
 
-    for i in range(5000000):
+    for i in range(5_000_000):
         PairNA = getNextA(PairNA)
         PairNB = getNextB(PairNB)
         # print(bin(PairNA)[2:].zfill(32), bin(PairNB)[2:].zfill(32))
